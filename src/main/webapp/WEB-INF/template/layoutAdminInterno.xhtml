@@ -15,7 +15,7 @@
 		
 		<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
 		
-		<h:outputStylesheet library="css/candidato" name="layout.css" />
+		<h:outputStylesheet library="css" name="layout.css" />
 		<h:outputStylesheet library="css" name="custom.css" />
 		<h:outputStylesheet library="css" name="components.css" />
 		
@@ -35,7 +35,27 @@
 			</p:ajaxStatus>
 			
 			<header class="layout-cabecalho  layout-cabecalho--home">
-	       		<ui:include src="menuExterno.xhtml" />
+	       		<nav class="navegacao">
+					<h:link outcome="/index">
+						<h:graphicImage library="images" name="logo.png" styleClass="logo-externo img-hover" />
+					</h:link>
+					
+					<div class="navegacao__menu">
+						<a href="#" class="botao-chaveador  js-botao-chaveador"><i class="fa  fa-bars"></i></a>
+			       
+			       		<ul class="menu js-menu">
+			        		<li class="menu__item">
+			            		<a href="../admin.xhtml" class="link-menu">Home</a>
+			            	</li>
+			            	<li class="menu__item">
+			                	<a href="./pesquisaUsuario.xhtml" class="link-menu">Usuários</a>
+					        </li>
+					        <li class="menu__item">
+				               	<a href="../j_spring_security_logout" class="link-menu">Sair</a>
+						    </li>
+						</ul>
+			     	</div>
+    			</nav>
 			</header>
 			
 			<section class="aw-content  js-content">

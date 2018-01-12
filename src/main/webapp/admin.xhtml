@@ -1,13 +1,20 @@
-<ui:composition template="/WEB-INF/template/layout.xhtml"
+<ui:composition template="/WEB-INF/template/layoutAdminExterno.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:sec="http://www.springframework.org/security/facelets/tags">
+    xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		<p:outputLabel value="Área Restrita" style="font-size:16px; color:#a29061" />
-		
+		<h:form id="frm" prependId="false">
+			<p:outputLabel value="Área Restrita" style="font-size:21px; color:#00b2ab" />
+			
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			
+			<div class="ui-fluid">
+				
+			</div>
+		</h:form>
 	</ui:define>
+	
 </ui:composition>

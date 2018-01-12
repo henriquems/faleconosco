@@ -1,6 +1,7 @@
 package com.feluma.faleconosco.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.persistence.Query;
@@ -12,8 +13,10 @@ import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
 
 import com.feluma.faleconosco.dao.generic.GenericoDAO;
+import com.feluma.faleconosco.filter.PesquisaFilter;
 import com.feluma.faleconosco.model.Perfil;
 import com.feluma.faleconosco.model.Usuario;
+import com.feluma.faleconosco.service.PesquisaService;
 
 public class UsuarioDAO extends GenericoDAO<Usuario, Long> implements Serializable {
 
@@ -45,9 +48,12 @@ public class UsuarioDAO extends GenericoDAO<Usuario, Long> implements Serializab
 
 	public Usuario recuperarUsuario(Long codigo) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("select distinct u from Usuario u ");
-		sb.append("inner join fetch u.perfis p ");
-		sb.append("where u.codigo = :codigo");
+		sb.append("select distinct usu from Usuario usu ");
+		sb.append("inner join fetch usu.perfis per ");
+		sb.append("inner join fetch usu.unidadeSetor uniSet ");
+		sb.append("inner join fetch uniSet.unidade uni ");
+		sb.append("inner join fetch uniSet.setor seto ");
+		sb.append("where usu.codigo = :codigo");
 		
 		return getEntityManager().createQuery(sb.toString(), Usuario.class)
 				.setParameter("codigo", codigo)
@@ -106,6 +112,36 @@ public class UsuarioDAO extends GenericoDAO<Usuario, Long> implements Serializab
 		} catch (Exception e) {}
 		
 		return usuario;
+	}
+
+	public List<Usuario> listarUsuario() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("select distinct usu from Usuario usu ");
+		sb.append("inner join fetch usu.perfis per ");
+		sb.append("inner join fetch usu.unidadeSetor uniSet ");
+		sb.append("inner join fetch uniSet.unidade uni ");
+		sb.append("inner join fetch uniSet.setor seto ");
+		sb.append("order by usu.nome");
+		
+		return getEntityManager().createQuery(sb.toString(), Usuario.class)
+				.getResultList();
+	}
+
+	public List<Usuario> pesquisarUsuario(List<PesquisaFilter> listaParamentrosPesquisa) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("select distinct usu from Usuario usu ");
+		sb.append("inner join fetch usu.perfis per ");
+		sb.append("inner join fetch usu.unidadeSetor uniSet ");
+		sb.append("inner join fetch uniSet.unidade uni ");
+		sb.append("inner join fetch uniSet.setor seto ");
+		sb.append("where usu.codigo <> 0 ");
+		
+		PesquisaService.testarCamposPesquisaUsuario(sb, listaParamentrosPesquisa);
+		
+		sb.append("order by usu.nome");
+		
+		return getEntityManager().createQuery(sb.toString(), Usuario.class)
+				.getResultList();
 	}
 
 }

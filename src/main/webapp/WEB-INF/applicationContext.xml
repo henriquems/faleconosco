@@ -36,6 +36,7 @@
 		<intercept-url pattern="/acessoNegado.xhtml" access="isAuthenticated()" />
 		<intercept-url pattern="/admin.xhtml" access="isAuthenticated()" />
 		<intercept-url pattern="/meusDados.xhtml" access="isAuthenticated()" />
+		<intercept-url pattern="/usuario/**" access="isAuthenticated()" />
 		
 		<intercept-url pattern="/**" access="denyAll" />
 		

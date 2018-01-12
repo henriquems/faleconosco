@@ -2,6 +2,9 @@ package com.feluma.faleconosco.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,19 +25,23 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="cod_usu")
 	private Long codigo;
-
+	
+	@NotEmpty
 	@Column(name="cpf_usu")
 	private String cpf;
 
+	@NotEmpty
 	@Column(name="ema_usu")
 	private String email;
-
+	
+	@NotEmpty
 	@Column(name="nom_usu")
 	private String nome;
 
 	@Column(name="sen_usu")
 	private String senha;
-
+	
+	@NotNull
 	@Column(name="sta_usu")
 	@Enumerated(EnumType.STRING)
 	private StatusUsuario statusUsuario;
@@ -54,7 +61,7 @@ public class Usuario implements Serializable {
 	//bi-directional many-to-one association to UnidadeSetor
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cod_uni_set")
-	private UnidadeSetor unidadeSetor;
+	private UnidadeSetor unidadeSetor = new UnidadeSetor();
 
 	//bi-directional many-to-many association to Perfil
 	@ManyToMany

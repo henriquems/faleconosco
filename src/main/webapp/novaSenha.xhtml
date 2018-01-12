@@ -1,0 +1,45 @@
+<ui:composition template="/WEB-INF/template/layoutCliente.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:form id="frm" prependId="false">
+			<p:outputLabel value="Nova Senha" style="font-size:21px; color:#00b2ab" />
+			
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			
+			<p:panel style="margin-top: 10px">
+				<p:panelGrid columns="1" layout="grid" id="panelGrid2"
+					style="margin-top: 2px; margin-bottom: 5px"
+					styleClass="panelgrid-noborder"
+					columnClasses="ui-grid-col-12">
+					
+					<p:outputLabel value="Atenção" style="color:#FF6600; font-size: 17px;" />
+	    			<p:outputLabel value="Para restaurar sua senha, informe seu CPF no campo abaixo, clique no botão 'Restaurar Senha' e logo após você receberá em seu e-mail uma nova senha." style="color:#666666; font-size: 15px;" />
+				</p:panelGrid>
+			</p:panel>
+			
+			<div class="ui-fluid">
+				<p:panel header="Informe seu cpf" style="margin-top: 10px">
+    				<p:panelGrid columns="1" layout="grid" id="painel"
+						style="margin-top: 2px; margin-bottom: 5px"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-4">
+	    				
+	    				<p:outputLabel value="CPF" for="cpf"/>
+						<p:inputMask mask="999.999.999-99" id="cpf" value="#{restaurarSenhaBean.cpf}" required="true" 
+							requiredMessage="O campo CPF deve ser informado"><p:focus /></p:inputMask>
+						
+						<p:spacer />
+						<p:commandButton value="Restaurar Senha" id="botao" action="#{restaurarSenhaBean.restaurarSenha}" 
+							update="@form" style="width:150px;height:35px"/>
+	    			</p:panelGrid>
+    			</p:panel>
+			</div>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

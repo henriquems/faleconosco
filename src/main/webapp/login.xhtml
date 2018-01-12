@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template/layoutExterno.xhtml"
+<ui:composition template="/WEB-INF/template/layoutCliente.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
@@ -31,9 +31,13 @@
 							<p:password id="j_password" />	
 						</h:panelGroup>
 						
-						<p:spacer />
 						<p:commandButton value="Acessar" id="acessar" action="#{loginBean.logar}"
 							ajax="false" style="width:100px;height:35px" />
+						<p:spacer />
+						
+						<h:panelGroup>
+							<p:link value=":: Esqueci minha senha ::" outcome="/novaSenha" />
+						</h:panelGroup>
 					</p:panelGrid>
 				</p:panel>
 			</div>

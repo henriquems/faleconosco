@@ -1,0 +1,117 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/template/layoutAdminInterno.xhtml">
+	
+	<ui:define name="content">
+		<f:metadata>
+			<o:viewParam name="usuario" value="#{cadastroUsuarioBean.usuario}" />
+		</f:metadata>
+	
+		<h:form id="frm">
+			<p:outputLabel value="#{cadastroUsuarioBean.editando ? 'Editar Usuário' : 'Novo Usuário'}" style="font-size:21px; color:#00b2ab" />
+		
+			<p:toolbar style="margin-top:15px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroUsuarioBean.salvar}" update="@form"/>
+					<p:separator />
+	    			<p:button value="Limpar" outcome="/usuario/cadastroUsuario" />
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Voltar" outcome="/usuario/pesquisaUsuario" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:messages autoUpdate="true" closable="true" />
+			
+			<div class="ui-fluid">
+				<p:panel header="Dados do usuário" style="margin-top:10px;">
+					<p:panelGrid columns="2" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-2, ui-grid-col-4">
+						
+						<p:outputLabel value="Status" for="statusUsuario"/>
+						<p:selectOneMenu id="statusUsuario" value="#{cadastroUsuarioBean.usuario.statusUsuario}">
+							<f:selectItem itemLabel="Selecione o status" />
+							<f:selectItems value="#{cadastroUsuarioBean.statusUsuarios}" var="statusUsuario" 
+								itemValue="#{statusUsuario}" itemLabel="#{statusUsuario}"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Unidade" for="unidade"/>
+						<p:selectOneMenu id="unidade" value="#{cadastroUsuarioBean.usuario.unidadeSetor.unidade}">
+							<f:selectItem itemLabel="Selecione a unidade" />
+							<f:selectItems value="#{cadastroUsuarioBean.unidades}" var="unidade" 
+								itemValue="#{unidade}" itemLabel="#{unidade.descricao}"/>
+							<p:ajax listener="#{cadastroUsuarioBean.recuperarSetoresDaUnidade}" update="setor" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Setor" for="setor"/>
+						<p:selectOneMenu id="setor" value="#{cadastroUsuarioBean.usuario.unidadeSetor.setor}">
+							<f:selectItem itemLabel="Selecione o setor" />
+							<f:selectItems value="#{cadastroUsuarioBean.unidadeSetores}" var="unidadeSetor" 
+								itemValue="#{unidadeSetor.setor}" itemLabel="#{unidadeSetor.setor.descricao}"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Nome" for="nome"/>
+						<p:inputText id="nome" maxlength="80" value="#{cadastroUsuarioBean.usuario.nome}">
+							<p:focus />
+						</p:inputText>
+						
+						<p:outputLabel value="CPF" for="cpf"/>
+						<p:inputMask mask="999.999.999-99" id="cpf" value="#{cadastroUsuarioBean.usuario.cpf}" />
+						
+						<p:outputLabel value="E-mail" for="email"/>
+						<p:inputText id="email" value="#{cadastroUsuarioBean.usuario.email}"/>
+						
+						<p:outputLabel value="Senha" for="senha"/>
+						<p:password id="senha" feedback="true" 
+							weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" 
+							promptLabel="Favor informar uma senha"
+							match="confirmaSenha" value="#{cadastroUsuarioBean.usuario.senha}" />
+							
+						<p:outputLabel value="Confirma Senha" for="confirmaSenha"/>
+						<p:password id="confirmaSenha" />	
+					</p:panelGrid>
+				</p:panel>
+			
+				<p:panel header="Dados do perfil" style="margin-top:10px;">
+					<p:panelGrid columns="2" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-2, ui-grid-col-4">
+						
+						<p:selectOneMenu id="perfil" value="#{cadastroUsuarioBean.perfil}" label="perfil">
+							<f:selectItem itemLabel="Selecione o perfil" />
+							<f:selectItems value="#{cadastroUsuarioBean.perfis}" var="perfil" itemValue="#{perfil}" itemLabel="#{perfil.nome}"/>
+						</p:selectOneMenu>
+						<p:commandButton value="Adicionar perfil" action="#{cadastroUsuarioBean.adicionarPerfil}" process="@this perfil" update="tabelaPerfis"/>
+					</p:panelGrid>
+				</p:panel>
+			</div>
+			
+			<p:dataTable id="tabelaPerfis" value="#{cadastroUsuarioBean.usuario.perfis}" var="perfil" style="margin-top:10px" 
+				emptyMessage="Nenhum perfil encontrado." rows="10" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" reflow="true">
+				<p:column headerText="Nome" style="text-align: left;">
+					<h:outputText value="#{perfil.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Descrição" style="text-align: left;">
+					<h:outputText value="#{perfil.descricao}"/>
+				</p:column>
+				
+				<p:column headerText="Excluir" style="width:60px;text-align:center">
+					<p:commandButton icon="ui-icon-trash" process="@this" update="tabelaPerfis" action="#{cadastroUsuarioBean.excluirPerfil(perfil)}">
+						<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão" message="Tem certeza que deseja excluir o registro?" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

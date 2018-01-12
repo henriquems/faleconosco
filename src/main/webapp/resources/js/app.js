@@ -1,6 +1,7 @@
-$(function() {
-	$('.js-toggle').bind('click', function(event) {
-		$('.js-sidebar, .js-content').toggleClass('is-toggled');
-		event.preventDefault();
-	});	
-});
+var alternador = document.querySelector('.js-botao-chaveador');
+	alternador.onclick = function() {
+	var menu = document.querySelector('.js-menu');
+	menu.classList.toggle('menu--exibindo');
+}
+	
+	 
