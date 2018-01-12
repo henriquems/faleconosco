@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <!-- disables storage of sessions across restarts --> 
+    <Manager pathname=""/>
+    <Resource name="BeanManager" auth="Container" 
+        type="javax.enterprise.inject.spi.BeanManager" 
+        factory="org.jboss.weld.resources.ManagerObjectFactory"/>
+        
+    <Resource name="jdbc/faleconoscoDB" auth="Container" type="javax.sql.DataSource"
+      	maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+      	username="sysfelAdm" password="@dmF&#038;lum@" driverClassName="net.sourceforge.jtds.jdbc.Driver"
+      	url="jdbc:jtds:sqlserver://192.168.0.25:1433/faleconosco" />
+        
+</Context>

@@ -1,0 +1,43 @@
+<ui:composition template="/WEB-INF/template/layoutExterno.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<f:metadata>
+    		<f:viewParam name="dummy" />
+    		<f:event listener="#{loginBean.preRender}" type="preRenderView" />
+    	</f:metadata>
+		
+		<h:form id="frm" prependId="false">
+			<p:outputLabel value="Área Restrita" style="font-size:21px; color:#00b2ab" />
+			
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			
+			<div class="ui-fluid">
+				<p:panel id="panel" header="Acesso ao sistema" style="margin-top:10px">
+					<p:panelGrid columns="1" layout="grid" id="panelGrid"
+						style="margin-top: 5px; margin-bottom: 5px"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-5">
+						
+						<p:outputLabel value="E-mail" style="font-size:15px" />
+						<p:inputText id="j_username" value="#{loginBean.email}"><p:focus /></p:inputText>
+						
+						<p:outputLabel value="Senha" style="font-size:15px" />
+						<h:panelGroup>
+							<p:password id="j_password" />	
+						</h:panelGroup>
+						
+						<p:spacer />
+						<p:commandButton value="Acessar" id="acessar" action="#{loginBean.logar}"
+							ajax="false" style="width:100px;height:35px" />
+					</p:panelGrid>
+				</p:panel>
+			</div>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

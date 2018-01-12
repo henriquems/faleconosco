@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<f:facet name="first">
+			<meta charset="UTF-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+		</f:facet>
+	
+		<title>Fale Conosco - Ouvidoria FELUMA</title>
+		
+		<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
+		
+		<h:outputStylesheet library="css/candidato" name="layout.css" />
+		<h:outputStylesheet library="css" name="custom.css" />
+		<h:outputStylesheet library="css" name="components.css" />
+		
+		<h:outputScript target="body" library="primefaces" name="jquery/jquery.js" />
+		<h:outputScript target="body" library="js/candidato" name="app.js" />
+	</h:head>
+	
+	<h:body>
+		<div class="layout-page">
+			<p:ajaxStatus styleClass="ajax-status">
+				<f:facet name="start">
+					<h:graphicImage library="images" name="loading.gif"/>
+				</f:facet>
+				<f:facet name="complete">
+					<h:outputText value=""/>
+				</f:facet>
+			</p:ajaxStatus>
+			
+			<header class="layout-cabecalho  layout-cabecalho--home">
+	       		<ui:include src="menuExterno.xhtml" />
+			</header>
+			
+			<section class="aw-content  js-content">
+				<ui:insert name="content" />
+			</section>
+			
+			<footer class="layout-rodape">
+			  	<p>FELUMA - Ciências Médicas de Minas Gerais<br />
+					Ouvidoria - Contatos: Fale Conosco, ouvidoria@cienciasmedicasmg.edu.br - (31)3248-7170</p>
+			</footer>
+		</div>
+	</h:body>
+	
+	<h:form>
+		<p:confirmDialog global="true">
+	       	<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+	       	<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
+	</h:form>
+
+</html>

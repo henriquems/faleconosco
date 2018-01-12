@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+	
+	<nav class="navegacao">
+		<h:link outcome="/index">
+			<h:graphicImage library="images" name="logo.png" styleClass="logo-externo img-hover" />
+		</h:link>
+		
+		<div class="navegacao__menu">
+			<a href="#" class="botao-chaveador  js-botao-chaveador"><i class="fa  fa-bars"></i></a>
+       
+       		<ul class="menu js-menu">
+        		<li class="menu__item">
+            		<a href="./index.xhtml" class="link-menu">Home</a>
+            	</li>
+            	<li class="menu__item">
+                	<a href="./login.xhtml" class="link-menu">Área Restrita</a>
+		        </li>
+			</ul>
+     	</div>
+    </nav>
+	
+</ui:composition>

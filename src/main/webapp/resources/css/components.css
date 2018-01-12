@@ -1,0 +1,145 @@
+/* TOGGLE */
+.aw-toggle {
+	float: right;
+	margin-top:34px;
+	margin-right: 30px;
+	color: #ffffff;
+}
+
+/* MENU */
+.aw-menu {
+	font-size: 1.1em;
+}
+
+.aw-menu > ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.aw-menu > ul a {
+	display: block;
+	padding: 10px 15px;
+	text-decoration: none;
+	font-weight: 500;
+	color: #828282;
+} 
+
+.aw-menu > ul i {
+	margin-right: 6px;
+}
+
+.aw-menu > ul a:hover, .aw-menu > ul a:focus {
+	background-color: #dfdfdf;
+}
+
+.aw-menu > ul .is-selected {
+	border-left: 3px solid #12b2a9;
+	background-color: #f3f3f3;
+}
+
+.aw-menu > ul .is-selected a {
+	margin-left: -3px;
+	color: #9a9369;
+}
+
+/* PAGE-TITLE */
+.aw-page-title {
+	margin: 0;
+	padding: 20px 0;
+	
+	font-size: 1.3em;
+	color: #828282;
+}
+
+/* Menu sistema inicio */
+.menu-sistema {
+    border: 0px !important;
+    padding: 0px !important;
+}
+
+.ui-widget {
+	font-size: 1.0em
+}
+
+/* Menu Step*/
+
+.ui-steps .ui-steps-item {
+    width: 33.3%;
+}
+ 
+.ui-state-highlight {
+    text-shadow: none !important;
+}
+ 
+.ui-steps.custom {
+    margin-bottom: 30px;
+}
+ 
+.ui-steps.custom .ui-steps-item .ui-menuitem-link {
+    height: 10px;
+    padding: 0 1em;
+}
+ 
+.ui-steps.custom .ui-steps-item .ui-steps-number {
+    background-color: #c0c0c0; /*#0081c2; a29065*/
+    color: #FFFFFF;
+    display: inline-block;
+    width: 30px;
+    border-radius: 10px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+ 
+.ui-steps.custom .ui-steps-item.ui-state-highlight .ui-steps-title {
+    color: #555;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+	background-image: linear-gradient(to bottom, #c0c0c0, #c0c0c0);
+}
+
+.ui-menu.ui-widget {
+	background-color:#f0f6f6; /* Henrique: Cor do menu */
+	border-radius:0px;
+}
+
+.ui-menu.ui-widget li.ui-corner-all, .ui-menu.ui-widget a.ui-corner-all{
+	border-bottom-color:#e7e7e7;
+}
+
+.ui-widget-header {
+	color:#999999;
+}
+
+/* Borda DataList */
+
+.ui-datalist-content{
+	border: 0px; 
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color:#0000ff;
+}
+
+.radio td{
+	padding: 5px !important;
+}
+
+.hide-column-names table thead tr {
+    display: none;
+}
+
+.img-hover:hover {
+    opacity: 0.7;
+}
+
+.logo-externo{
+	vertical-align:middle;
+	padding-left: 95px;
+}

@@ -1,0 +1,49 @@
+<ui:composition template="/WEB-INF/template/layoutExterno.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:form id="frm" prependId="false">
+			<p:outputLabel value="Fale Conosco" style="font-size:21px; color:#00b2ab" />
+			
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			
+			<div class="ui-fluid">
+				<p:panel id="panel" header="Formulário de contato" style="margin-top:15px">
+					<p:panelGrid columns="1" layout="grid" id="panelGrid"
+						style="margin-top:10px; margin-bottom:10px"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-5">
+						
+						<p:outputLabel value="Nome" for="nome" style="font-size:15px"/>
+						<p:inputText id="nome" value="#{cadastroMensagemBean.mensagem.cliente.nome}"><p:focus /></p:inputText>
+						
+						<p:outputLabel value="E-mail" for="email" style="font-size:15px"/>
+						<p:inputText id="email" value="#{cadastroMensagemBean.mensagem.cliente.email}"/>
+						
+						<p:outputLabel value="Telefone" for="telefone" style="font-size:15px"/>
+						<p:inputMask mask="(99)9999-9999" id="telefone" value="#{cadastroMensagemBean.mensagem.cliente.telefone}"/>
+						
+						<p:outputLabel value="Assunto" for="assunto" style="font-size:15px"/>
+						<p:selectOneMenu id="assunto" value="#{cadastroMensagemBean.mensagem.tipoAssunto}">
+							<f:selectItem itemLabel="Selecione o assunto" />
+							<f:selectItems value="#{cadastroMensagemBean.tipoAssuntos}" var="tipoAssunto" 
+								itemValue="#{tipoAssunto}" itemLabel="#{tipoAssunto.descricao}"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Mensagem" for="mensagem" style="font-size:15px" />
+						<p:inputTextarea id="mensagem" rows="5" value="#{cadastroMensagemBean.mensagem.descricao}"/>
+						
+						<p:spacer />
+						<p:commandButton value="Enviar Mensagem" action="#{cadastroMensagemBean.salvar}" 
+							update="@form" style="width:150px;height:35px" />
+					</p:panelGrid>
+				</p:panel>
+			</div>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>
