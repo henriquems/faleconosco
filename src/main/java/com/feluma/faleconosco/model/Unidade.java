@@ -2,6 +2,9 @@ package com.feluma.faleconosco.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.List;
 
 
@@ -19,19 +22,20 @@ public class Unidade implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="cod_uni")
 	private Long codigo;
-
+	
+	@NotEmpty
 	@Column(name="des_uni")
 	private String descricao;
 
-	//bi-directional many-to-one association to UnidadeSetor
-	@OneToMany(mappedBy="unidade")
-	private List<UnidadeSetor> unidadeSetores;
-
+	//bi-directional many-to-many association to Setor
+	@ManyToMany(mappedBy="unidades")
+	private List<Setor> setores;
+		
 	public Unidade() {
 	}
 
 	public Long getCodigo() {
-		return this.codigo;
+		return codigo;
 	}
 
 	public void setCodigo(Long codigo) {
@@ -39,33 +43,19 @@ public class Unidade implements Serializable {
 	}
 
 	public String getDescricao() {
-		return this.descricao;
+		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
-	public List<UnidadeSetor> getUnidadeSetores() {
-		return this.unidadeSetores;
+	public List<Setor> getSetores() {
+		return setores;
 	}
 
-	public void setUnidadeSetors(List<UnidadeSetor> unidadeSetores) {
-		this.unidadeSetores = unidadeSetores;
-	}
-
-	public UnidadeSetor addUnidadeSetor(UnidadeSetor unidadeSetor) {
-		getUnidadeSetores().add(unidadeSetor);
-		unidadeSetor.setUnidade(this);
-
-		return unidadeSetor;
-	}
-
-	public UnidadeSetor removeUnidadeSetor(UnidadeSetor unidadeSetor) {
-		getUnidadeSetores().remove(unidadeSetor);
-		unidadeSetor.setUnidade(null);
-
-		return unidadeSetor;
+	public void setSetores(List<Setor> setores) {
+		this.setores = setores;
 	}
 
 	@Override
@@ -92,5 +82,6 @@ public class Unidade implements Serializable {
 			return false;
 		return true;
 	}
+
 
 }

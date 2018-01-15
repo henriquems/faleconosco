@@ -51,8 +51,8 @@ public class UsuarioDAO extends GenericoDAO<Usuario, Long> implements Serializab
 		sb.append("select distinct usu from Usuario usu ");
 		sb.append("inner join fetch usu.perfis per ");
 		sb.append("inner join fetch usu.unidadeSetor uniSet ");
-		sb.append("inner join fetch uniSet.unidade uni ");
-		sb.append("inner join fetch uniSet.setor seto ");
+		sb.append("inner join fetch uniSet.id.unidade uni ");
+		sb.append("inner join fetch uniSet.id.setor seto ");
 		sb.append("where usu.codigo = :codigo");
 		
 		return getEntityManager().createQuery(sb.toString(), Usuario.class)
@@ -119,8 +119,8 @@ public class UsuarioDAO extends GenericoDAO<Usuario, Long> implements Serializab
 		sb.append("select distinct usu from Usuario usu ");
 		sb.append("inner join fetch usu.perfis per ");
 		sb.append("inner join fetch usu.unidadeSetor uniSet ");
-		sb.append("inner join fetch uniSet.unidade uni ");
-		sb.append("inner join fetch uniSet.setor seto ");
+		sb.append("inner join fetch uniSet.id.unidade uni ");
+		sb.append("inner join fetch uniSet.id.setor seto ");
 		sb.append("order by usu.nome");
 		
 		return getEntityManager().createQuery(sb.toString(), Usuario.class)

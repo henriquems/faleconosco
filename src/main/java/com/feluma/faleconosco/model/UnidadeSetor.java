@@ -15,24 +15,12 @@ import java.util.List;
 public class UnidadeSetor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cod_uni_set")
-	private Long codigo;
+	@EmbeddedId
+	private UnidadeSetorPK id = new UnidadeSetorPK();
 
 	//bi-directional many-to-one association to Avaliacao
 	@OneToMany(mappedBy="unidadeSetor")
 	private List<Avaliacao> avaliacoes;
-
-	//bi-directional many-to-one association to Setor
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cod_set")
-	private Setor setor;
-
-	//bi-directional many-to-one association to Unidade
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cod_uni")
-	private Unidade unidade;
 
 	//bi-directional many-to-one association to Usuario
 	@OneToMany(mappedBy="unidadeSetor")
@@ -41,12 +29,12 @@ public class UnidadeSetor implements Serializable {
 	public UnidadeSetor() {
 	}
 
-	public Long getCodigo() {
-		return this.codigo;
+	public UnidadeSetorPK getId() {
+		return this.id;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setId(UnidadeSetorPK id) {
+		this.id = id;
 	}
 
 	public List<Avaliacao> getAvaliacoes() {
@@ -69,22 +57,6 @@ public class UnidadeSetor implements Serializable {
 		avaliacao.setUnidadeSetor(null);
 
 		return avaliacao;
-	}
-
-	public Setor getSetor() {
-		return this.setor;
-	}
-
-	public void setSetor(Setor setor) {
-		this.setor = setor;
-	}
-
-	public Unidade getUnidade() {
-		return this.unidade;
-	}
-
-	public void setUnidade(Unidade unidade) {
-		this.unidade = unidade;
 	}
 
 	public List<Usuario> getUsuarios() {
@@ -113,7 +85,7 @@ public class UnidadeSetor implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -126,10 +98,10 @@ public class UnidadeSetor implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		UnidadeSetor other = (UnidadeSetor) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

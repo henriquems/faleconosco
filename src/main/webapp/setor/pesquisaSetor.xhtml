@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/layoutAdminInterno.xhtml">
+	
+	<ui:define name="content">
+		<h:form id="frmPesquisa">
+			<p:outputLabel value="Pesquisa de Setores" style="font-size:20px; color:#00b2ab" />
+			
+			<p:toolbar style="margin-top:15px">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" action="#{pesquisaSetorBean.pesquisar}" update="@form" />
+					<p:separator />
+					<p:button value="Limpar" outcome="/setor/pesquisaSetor"/>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/setor/cadastroSetor"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:messages autoUpdate="true" closable="true"/>
+			
+			<div class="ui-fluid">
+				<p:panel header="Pesquisa Setor" style="margin-top:10px;">
+					<p:panelGrid columns="4" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5, ui-grid-col-1, ui-grid-col-5">
+						
+						<p:outputLabel value="Unidade" />
+						<p:selectOneMenu id="unidade" value="#{pesquisaSetorBean.filtro.unidade}" >
+							<f:selectItem itemLabel="Selecione a unidade" />
+							<f:selectItems value="#{pesquisaSetorBean.unidades}" var="unidade" itemValue="#{unidade}" 
+								itemLabel="#{unidade.descricao}"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Nome" />
+						<p:inputText id="descricao" value="#{pesquisaSetorBean.filtro.descricao}" />	
+					</p:panelGrid>
+				</p:panel>
+			</div>
+			
+			<p:dataTable value="#{pesquisaSetorBean.setores}" var="setor" style="margin-top:10px" 
+				emptyMessage="Nenhum setor encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" id="table" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+				
+				<p:column headerText="Setor" sortBy="#{setor.descricao}" style="text-align: left;">
+					<h:outputText value="#{setor.descricao}"/>
+				</p:column>
+				
+				<p:column headerText="Unidade" style="text-align: left;">
+					<p:dataList value="#{setor.unidades}" var="unidade">
+						<p:outputLabel value="#{unidade.descricao}" />
+					</p:dataList>
+				</p:column>
+				
+				<p:column headerText="Editar" style="text-align:center;width:60px">
+					<p:button outcome="/setor/cadastroSetor" icon="ui-icon-pencil" title="Editar">
+						<f:param name="setor" value="#{setor.codigo}" />
+					</p:button>
+				</p:column>
+				
+				<p:column headerText="Excluir" style="text-align:center;width:60px">
+					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="table" action="#{pesquisaSetorBean.excluir(setor)}">
+						<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão" message="Tem certeza que deseja excluir o registro?" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

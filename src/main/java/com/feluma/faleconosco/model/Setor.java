@@ -2,36 +2,49 @@ package com.feluma.faleconosco.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The persistent class for the setor database table.
  * 
  */
 @Entity
-@Table(name="setor")
-@NamedQuery(name="Setor.findAll", query="SELECT s FROM Setor s")
+@Table(name = "setor")
+@NamedQuery(name = "Setor.findAll", query = "SELECT s FROM Setor s")
 public class Setor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cod_set")
+	@Column(name = "cod_set")
 	private Long codigo;
-
-	@Column(name="des_set")
+	
+	@NotEmpty
+	@Column(name = "des_set")
 	private String descricao;
 
-	//bi-directional many-to-one association to UnidadeSetor
-	@OneToMany(mappedBy="setor")
-	private List<UnidadeSetor> unidadeSetores;
+	//bi-directional many-to-many association to Unidade
+	@ManyToMany
+	@JoinTable(
+		name="unidade_setor"
+		, joinColumns={
+			@JoinColumn(name="cod_set")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="cod_uni")
+			}
+		)
+	private List<Unidade> unidades = new ArrayList<Unidade>();
 
 	public Setor() {
 	}
 
 	public Long getCodigo() {
-		return this.codigo;
+		return codigo;
 	}
 
 	public void setCodigo(Long codigo) {
@@ -39,33 +52,19 @@ public class Setor implements Serializable {
 	}
 
 	public String getDescricao() {
-		return this.descricao;
+		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
-	public List<UnidadeSetor> getUnidadeSetores() {
-		return this.unidadeSetores;
+	public List<Unidade> getUnidades() {
+		return unidades;
 	}
 
-	public void setUnidadeSetores(List<UnidadeSetor> unidadeSetores) {
-		this.unidadeSetores = unidadeSetores;
-	}
-
-	public UnidadeSetor addUnidadeSetor(UnidadeSetor unidadeSetor) {
-		getUnidadeSetores().add(unidadeSetor);
-		unidadeSetor.setSetor(this);
-
-		return unidadeSetor;
-	}
-
-	public UnidadeSetor removeUnidadeSetor(UnidadeSetor unidadeSetor) {
-		getUnidadeSetores().remove(unidadeSetor);
-		unidadeSetor.setSetor(null);
-
-		return unidadeSetor;
+	public void setUnidades(List<Unidade> unidades) {
+		this.unidades = unidades;
 	}
 
 	@Override

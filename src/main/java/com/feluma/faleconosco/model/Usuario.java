@@ -58,11 +58,6 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<Resposta> respostas;
 
-	//bi-directional many-to-one association to UnidadeSetor
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cod_uni_set")
-	private UnidadeSetor unidadeSetor = new UnidadeSetor();
-
 	//bi-directional many-to-many association to Perfil
 	@ManyToMany
 	@JoinTable(
@@ -75,6 +70,14 @@ public class Usuario implements Serializable {
 			}
 		)
 	private Set<Perfil> perfis = new HashSet<Perfil>();
+	
+	//bi-directional many-to-one association to UnidadeSetor
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumns({
+		@JoinColumn(name="cod_set", referencedColumnName="cod_set"),
+		@JoinColumn(name="cod_uni", referencedColumnName="cod_uni")
+		})
+	private UnidadeSetor unidadeSetor = new UnidadeSetor();
 
 	public Usuario() {
 	}
@@ -193,20 +196,20 @@ public class Usuario implements Serializable {
 		return resposta;
 	}
 
-	public UnidadeSetor getUnidadeSetor() {
-		return this.unidadeSetor;
-	}
-
-	public void setUnidadeSetor(UnidadeSetor unidadeSetor) {
-		this.unidadeSetor = unidadeSetor;
-	}
-
 	public Set<Perfil> getPerfis() {
 		return this.perfis;
 	}
 
 	public void setPerfils(Set<Perfil> perfis) {
 		this.perfis = perfis;
+	}
+
+	public UnidadeSetor getUnidadeSetor() {
+		return unidadeSetor;
+	}
+
+	public void setUnidadeSetor(UnidadeSetor unidadeSetor) {
+		this.unidadeSetor = unidadeSetor;
 	}
 
 	@Override

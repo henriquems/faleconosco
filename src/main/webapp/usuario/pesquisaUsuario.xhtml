@@ -7,7 +7,7 @@
 	
 	<ui:define name="content">
 		<h:form id="frmPesquisa">
-			<p:outputLabel value="Pesquisa de Usuários" style="font-size:21px; color:#00b2ab" />
+			<p:outputLabel value="Pesquisa de Usuários" style="font-size:20px; color:#00b2ab" />
 			
 			<p:toolbar style="margin-top:15px">
 				<p:toolbarGroup>
@@ -72,12 +72,12 @@
 					<h:outputText value="#{usuario.email}"/>
 				</p:column>
 				
-				<p:column headerText="Unidade" sortBy="#{usuario.unidadeSetor.unidade.descricao}" style="text-align: left;">
-					<h:outputText value="#{usuario.unidadeSetor.unidade.descricao}"/>
+				<p:column headerText="Unidade" sortBy="#{usuario.unidadeSetor.id.unidade.descricao}" style="text-align: left;">
+					<h:outputText value="#{usuario.unidadeSetor.id.unidade.descricao}"/>
 				</p:column>
 				
-				<p:column headerText="Setor" sortBy="#{usuario.unidadeSetor.setor.descricao}" style="text-align: left;">
-					<h:outputText value="#{usuario.unidadeSetor.setor.descricao}"/>
+				<p:column headerText="Setor" sortBy="#{usuario.unidadeSetor.id.setor.descricao}" style="text-align: left;">
+					<h:outputText value="#{usuario.unidadeSetor.id.setor.descricao}"/>
 				</p:column>
 				
 				<p:column headerText="Status" sortBy="#{usuario.statusUsuario}" style="text-align: left;">
