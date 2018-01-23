@@ -1,15 +1,28 @@
 package com.feluma.faleconosco.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 
 /**
  * The persistent class for the usuario database table.
@@ -69,7 +82,7 @@ public class Usuario implements Serializable {
 			@JoinColumn(name="cod_per")
 			}
 		)
-	private Set<Perfil> perfis = new HashSet<Perfil>();
+	private List<Perfil> perfis = new ArrayList<Perfil>();
 	
 	//bi-directional many-to-one association to UnidadeSetor
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -196,11 +209,19 @@ public class Usuario implements Serializable {
 		return resposta;
 	}
 
-	public Set<Perfil> getPerfis() {
-		return this.perfis;
+	public List<MensagemOriginal> getMensagensOriginais() {
+		return mensagensOriginais;
 	}
 
-	public void setPerfils(Set<Perfil> perfis) {
+	public void setMensagensOriginais(List<MensagemOriginal> mensagensOriginais) {
+		this.mensagensOriginais = mensagensOriginais;
+	}
+	
+	public List<Perfil> getPerfis() {
+		return perfis;
+	}
+
+	public void setPerfis(List<Perfil> perfis) {
 		this.perfis = perfis;
 	}
 

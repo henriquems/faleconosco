@@ -1,0 +1,124 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/template/layoutAdminInterno.xhtml">
+	
+	<ui:define name="content">
+		<f:metadata>
+			<o:viewParam name="avaliacao" value="#{encaminhaMensagemBean.avaliacao}" />
+			<f:event listener="#{encaminhaMensagemBean.inicializar}" type="preRenderView" />
+		</f:metadata>
+	
+		<h:form id="frm">
+			<p:outputLabel value="Encaminhar Mensagem" style="font-size:19px; color:#00b2ab" />
+		
+			<p:toolbar style="margin-top:15px">
+				<p:toolbarGroup>
+					<p:commandButton value="Encaminhar Gerente" 
+	    				action="#{encaminhaMensagemBean.encaminharParaGerente}">
+						<p:confirm icon="ui-icon-alert" header="Confirmação de envio" 
+							message="Tem certeza que deseja encaminhar a mensagem para o gerente?" />
+					</p:commandButton>
+					
+					<p:separator rendered="#{encaminhaMensagemBean.avaliacao.mensagem.respostas.size() > 0}" />
+					
+					<p:commandButton value="Responder Cliente" action="#{encaminhaMensagemBean.responderParaCliente}"
+						rendered="#{encaminhaMensagemBean.avaliacao.mensagem.respostas.size() > 0}">
+						<p:confirm icon="ui-icon-alert" header="Confirmação de resposta" 
+							message="Tem certeza que deseja responder a mensagem para o cliente?" />
+					</p:commandButton>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Voltar" outcome="/mensagem/pesquisaMensagem" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:messages autoUpdate="true" closable="true" />
+			
+			<div class="ui-fluid">
+				<p:panel header="Dados da mensagem" style="margin-top:10px;">
+					<p:panelGrid columns="2" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-11">
+						
+						<p:outputLabel value="Nome" />
+						<p:outputLabel value="#{encaminhaMensagemBean.avaliacao.mensagem.cliente.nome}" />
+						
+						<p:outputLabel value="E-mail" />
+						<p:outputLabel value="#{encaminhaMensagemBean.avaliacao.mensagem.cliente.email}" />
+						
+						<p:outputLabel value="Telefone" />
+						<p:outputLabel value="#{encaminhaMensagemBean.avaliacao.mensagem.cliente.telefone}" />
+						
+						<p:outputLabel value="Assunto" />
+						<p:outputLabel value="#{encaminhaMensagemBean.avaliacao.mensagem.tipoAssunto.descricao}" />
+						
+						<p:outputLabel value="Mensagem" />
+						<p:outputLabel value="#{encaminhaMensagemBean.avaliacao.mensagem.descricao}" />
+					</p:panelGrid>
+				</p:panel>
+			</div>
+			
+			<p:dataTable value="#{encaminhaMensagemBean.avaliacao.mensagem.respostas}" var="resposta" style="margin-top:-1px" 
+				emptyMessage="Nenhuma resposta encontrada!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" id="table" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50"
+				rendered="#{encaminhaMensagemBean.avaliacao.mensagem.respostas.size() > 0}">
+				
+				<p:column headerText="Respostas" style="text-align: left;">
+					<h:outputText value="#{resposta.descricao}"/>
+				</p:column>
+				
+				<p:column headerText="Gerente" style="text-align:left;width:300px">
+					<h:outputText value="#{resposta.usuario.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Data" style="text-align:left;width:150px">
+					<h:outputText value="#{resposta.data}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Editar" style="text-align:center;width:60px">
+					<p:button outcome="/resposta/cadastroResposta" icon="ui-icon-pencil" title="Editar">
+						<f:param name="resposta" value="#{resposta.codigo}" />
+						<f:param name="avaliacao" value="#{encaminhaMensagemBean.avaliacao.codigo}" />
+					</p:button>
+				</p:column>
+			</p:dataTable>
+			
+			<div class="ui-fluid">
+				<p:panel header="Setor responsável" style="margin-top:10px;">
+					<p:panelGrid columns="2" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5">
+						
+						<p:outputLabel value="Unidade" for="unidade"/>
+						<p:selectOneMenu id="unidade" value="#{encaminhaMensagemBean.avaliacao.unidadeSetor.id.unidade}"
+							required="true" requiredMessage="O campo Unidade deve ser informado">
+							<f:selectItem itemLabel="Selecione a unidade" />
+							<f:selectItems value="#{encaminhaMensagemBean.unidades}" var="unidade" 
+								itemValue="#{unidade}" itemLabel="#{unidade.descricao}"/>
+							<p:ajax listener="#{encaminhaMensagemBean.recuperarSetoresDaUnidade}" update="setor" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Setor" for="setor"/>
+						<p:selectOneMenu id="setor" value="#{encaminhaMensagemBean.avaliacao.unidadeSetor.id.setor}"
+							required="true" requiredMessage="O campo Setor deve ser informado">
+							<f:selectItem itemLabel="Selecione o setor" />
+							<f:selectItems value="#{encaminhaMensagemBean.setores}" var="setor" 
+								itemValue="#{setor}" itemLabel="#{setor.descricao}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+				</p:panel>
+			</div>
+
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

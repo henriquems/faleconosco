@@ -8,7 +8,7 @@ import javax.inject.Named;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import com.feluma.faleconosco.model.Perfil;
-import com.feluma.faleconosco.security.UsuarioSistema;
+import com.feluma.faleconosco.model.Usuario;
 
 @Named
 @RequestScoped
@@ -24,6 +24,18 @@ public class Seguranca {
 		}
 		
 		return nome;
+	}
+	
+	public Usuario getUsuario() {
+		Usuario usuario = null;
+		
+		UsuarioSistema usuarioLogado = getUsuarioLogado();
+		
+		if (usuarioLogado != null) {
+			usuario = usuarioLogado.getUsuario();
+		}
+		
+		return usuario;
 	}
 	
 	@Produces

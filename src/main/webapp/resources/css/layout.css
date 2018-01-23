@@ -36,7 +36,7 @@ body, html {
 
 .navegacao__menu {
   float: right;
-  padding-right: 95px;
+  padding-right: 25px;
 }
 
 .botao-chaveador {
@@ -77,7 +77,7 @@ body, html {
     padding: 10px;
     border-right: 1px solid #999;
 	
-    background-color: #12406d;
+    background-color: #00b2ab;
   }
   
   .menu--exibindo {
@@ -136,7 +136,7 @@ a.link-menu:hover {
 /******************************************************** Content *************************************************/
 
 .aw-content {
-	padding: 0px 120px 0px 120px;
+	padding: 0px 50px;
 	margin-top: 110px;
 	margin-bottom: 140px;
 }
@@ -144,10 +144,10 @@ a.link-menu:hover {
 /******************************************************** Footer *************************************************/
 
 .layout-rodape {
-	font-size: 12px;
+	font-size: 13px;
 	line-height: 1.6em;
 	margin-top:100px;
-	padding: 15px 0;
+	padding: 8px 0;
 	background-color: #f9f9f9;
 	color: #999999;
 	text-align: center;
@@ -155,7 +155,7 @@ a.link-menu:hover {
 	right: 0;
 	bottom: 0;
 	border-top: 1px solid #f1f1f1;
-	border-bottom:5px solid #00b2ab;
+	border-bottom:8px solid #5ab4b0;
 	position: absolute;
 }
 

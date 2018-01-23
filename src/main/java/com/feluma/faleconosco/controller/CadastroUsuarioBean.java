@@ -103,7 +103,7 @@ public class CadastroUsuarioBean implements Serializable {
 	public String salvar(){
 		String retorno = null;
 		if(usuario.getPerfis().size() != 0){
-			
+			usuario = usuarioService.salvar(usuario);
 			FacesUtil.addInfoMessage("Usuário "+usuario.getNome()+" salvo com sucesso!");
 			return "pesquisaUsuario.xhtml?faces-redirect=true";
 		} else {
@@ -129,8 +129,8 @@ public class CadastroUsuarioBean implements Serializable {
 	
 	public void adicionarPerfil(){
 		if(perfil != null){
-			if(this.usuario.getPerfis().contains(this.perfil)){
-				FacesUtil.addErroMessage("O perfil selecionado já se encontra adicionado!");
+			if(this.usuario.getPerfis().size() > 0){
+				FacesUtil.addAlertMessage("O usuário só pode estar associado a um perfil!");
 			} else {
 				this.usuario.getPerfis().add(this.perfil);
 				FacesUtil.addAlertMessage("Perfil adicionado com sucesso! Favor salvar os dados!");

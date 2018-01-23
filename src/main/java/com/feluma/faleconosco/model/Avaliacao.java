@@ -25,7 +25,8 @@ public class Avaliacao implements Serializable {
 	private Date data;
 
 	@Column(name="sta_ava")
-	private String statusAvaliacao;
+	@Enumerated(EnumType.STRING)
+	private StatusAvaliacao statusAvaliacao;
 
 	//bi-directional many-to-one association to Mensagem
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -43,9 +44,13 @@ public class Avaliacao implements Serializable {
 		@JoinColumn(name="cod_set", referencedColumnName="cod_set"),
 		@JoinColumn(name="cod_uni", referencedColumnName="cod_uni")
 		})
-	private UnidadeSetor unidadeSetor = new UnidadeSetor();
+	private UnidadeSetor unidadeSetor;
+	
+	@Column(name="flg_ati")
+	private int flagAtivo;
 
 	public Avaliacao() {
+		
 	}
 
 	public Long getCodigo() {
@@ -64,11 +69,11 @@ public class Avaliacao implements Serializable {
 		this.data = data;
 	}
 
-	public String getStatusAvaliacao() {
-		return this.statusAvaliacao;
+	public StatusAvaliacao getStatusAvaliacao() {
+		return statusAvaliacao;
 	}
 
-	public void setStatusAvaliacao(String statusAvaliacao) {
+	public void setStatusAvaliacao(StatusAvaliacao statusAvaliacao) {
 		this.statusAvaliacao = statusAvaliacao;
 	}
 
@@ -94,6 +99,14 @@ public class Avaliacao implements Serializable {
 
 	public void setUnidadeSetor(UnidadeSetor unidadeSetor) {
 		this.unidadeSetor = unidadeSetor;
+	}
+	
+	public int getFlagAtivo() {
+		return flagAtivo;
+	}
+
+	public void setFlagAtivo(int flagAtivo) {
+		this.flagAtivo = flagAtivo;
 	}
 
 	@Override

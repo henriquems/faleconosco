@@ -36,9 +36,11 @@
 		<intercept-url pattern="/acessoNegado.xhtml" access="isAuthenticated()" />
 		<intercept-url pattern="/admin.xhtml" access="isAuthenticated()" />
 		<intercept-url pattern="/meusDados.xhtml" access="isAuthenticated()" />
-		<intercept-url pattern="/usuario/**" access="isAuthenticated()" />
-		<intercept-url pattern="/setor/**" access="isAuthenticated()" />
 		
+		<intercept-url pattern="/usuario/**" access="hasAnyRole('ADMINISTRADOR')" />
+		<intercept-url pattern="/setor/**" access="hasAnyRole('ADMINISTRADOR')" />
+		<intercept-url pattern="/mensagem/**" access="hasAnyRole('GERENTE','OUVIDOR')" />
+		<intercept-url pattern="/resposta/**" access="hasAnyRole('OUVIDOR')" />
 		<intercept-url pattern="/**" access="denyAll" />
 		
 		<form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?invalid=true" 

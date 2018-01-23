@@ -72,5 +72,19 @@ public class PesquisaService implements Serializable {
 		}
 		return sb;
 	}
+
+	public static StringBuffer testarCamposPesquisaAvaliacao(StringBuffer sb, List<PesquisaFilter> listaParamentrosPesquisa) {
+		for(PesquisaFilter objPesquisa : listaParamentrosPesquisa){
+			if(objPesquisa.getCampo().equals("statusAvaliacao")){
+				sb.append(" and ava.statusAvaliacao = ");
+				sb.append("'"+objPesquisa.getValor()+"'");
+			}
+			if(objPesquisa.getCampo().equals("nomeCliente")){
+				sb.append(" and cli.nome like ");
+				sb.append("'%"+objPesquisa.getValor()+"%'");
+			}
+		}
+		return sb;
+	}
 	
 }

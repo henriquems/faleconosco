@@ -7,12 +7,60 @@
 
 	<ui:define name="content">
 		<h:form id="frm" prependId="false">
-			<p:outputLabel value="Área Restrita" style="font-size:20px; color:#00b2ab" />
-			
-			<p:messages id="messages" autoUpdate="true" closable="true" />
+			<p:outputLabel value="Área Restrita" style="font-size:19px; color:#00b2ab" />
 			
 			<div class="ui-fluid">
-				
+				<p:panel style="margin-top: 15px">				
+					<p:panelGrid columns="2" layout="grid" 
+						style="margin-top:0px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-6, ui-grid-col-6">
+						
+						<p:chart type="pie" model="#{adminBean.graficoMensagemPorAssunto}" 
+							responsive="true" style="max-width:100%;" />
+						
+						<p:chart type="pie" model="#{adminBean.graficoMensagemPorStatus}" 
+							responsive="true" style="max-width:100%;" />
+							
+						<p:chart type="pie" model="#{adminBean.graficoMensagemPorSetor}" 
+							responsive="true" style="max-width:100%;" />
+						
+						<p:panel style="margin-top:25px">				
+							<p:panelGrid columns="2" layout="grid" 
+								style="margin-top:0px;"
+								styleClass="panelgrid-noborder"
+								columnClasses="ui-grid-col-11, ui-grid-col-1">
+								
+								<p:outputLabel value="Total de clientes:" style="font-size:16px" />
+								<p:outputLabel value="20" style="font-size:16px"/>
+								
+								<p:outputLabel value="Total de mensagens:" style="font-size:16px"/>
+								<p:outputLabel value="20" style="font-size:16px"/>
+								
+								<p:outputLabel value="Total de avaliações:" style="font-size:16px"/>
+								<p:outputLabel value="20" style="font-size:16px"/>
+								
+								<p:outputLabel value="Mensagens editadas:" style="font-size:16px"/>
+								<p:outputLabel value="20" style="font-size:16px"/>
+								
+								<p:outputLabel value="Respostas editadas:" style="font-size:16px"/>
+								<p:outputLabel value="20" style="font-size:16px"/>
+								
+								<p:outputLabel value="Mensagens enviadas cliente:" style="font-size:16px"/>
+								<p:outputLabel value="20" style="font-size:16px"/>
+								
+								<p:outputLabel value="Mensagens enviadas ouvidor: " style="font-size:16px"/>
+								<p:outputLabel value="20" style="font-size:16px"/>
+								
+								<p:outputLabel value="Mensagens respondidas gerente:" style="font-size:16px"/>
+								<p:outputLabel value="20" style="font-size:16px"/>
+								
+								<p:outputLabel value="Mensagens respondidas ouvidor:" style="font-size:16px"/>
+								<p:outputLabel value="20" style="font-size:16px"/>
+							</p:panelGrid>
+						</p:panel>
+					</p:panelGrid>				
+				</p:panel>	
 			</div>
 		</h:form>
 	</ui:define>

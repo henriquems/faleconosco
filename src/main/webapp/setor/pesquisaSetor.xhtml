@@ -7,7 +7,7 @@
 	
 	<ui:define name="content">
 		<h:form id="frmPesquisa">
-			<p:outputLabel value="Pesquisa de Setores" style="font-size:20px; color:#00b2ab" />
+			<p:outputLabel value="Pesquisa de Setores" style="font-size:19px; color:#00b2ab" />
 			
 			<p:toolbar style="margin-top:15px">
 				<p:toolbarGroup>
@@ -51,11 +51,12 @@
 					<h:outputText value="#{setor.descricao}"/>
 				</p:column>
 				
-				<p:column headerText="Unidade" style="text-align: left;">
-					<p:dataList value="#{setor.unidades}" var="unidade">
-						<p:outputLabel value="#{unidade.descricao}" />
-					</p:dataList>
-				</p:column>
+				<p:column headerText="Unidade" style="text-align:center;width: 60px">
+	    			<p:commandButton icon="fa fa-building-o" title="Unidades" 
+	    				process="@this" oncomplete="PF('mostrarUnidade').show();" update=":frmPesquisa:mostrarUnidadeDialog">
+	    				<f:setPropertyActionListener target="#{pesquisaSetorBean.setor}" value="#{setor}" />
+	    			</p:commandButton>
+	    		</p:column>
 				
 				<p:column headerText="Editar" style="text-align:center;width:60px">
 					<p:button outcome="/setor/cadastroSetor" icon="ui-icon-pencil" title="Editar">
@@ -69,6 +70,17 @@
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			
+			<p:dialog id="mostrarUnidadeDialog" header="Unidade associada" widgetVar="mostrarUnidade" 
+				modal="true" style="min-width:300px;max-width:500px" responsive="true">
+    			
+    			<p:dataTable value="#{pesquisaSetorBean.setor.unidades}" var="unidade">
+    				<p:column headerText="Unidade" style="text-align: left;">
+						<h:outputText value="#{unidade.descricao}"/>
+					</p:column>
+    			</p:dataTable>
+    			
+			</p:dialog>
 		</h:form>
 	</ui:define>
 	

@@ -13,5 +13,15 @@ public class PerfilDAO extends GenericoDAO<Perfil, Long> implements Serializable
 		return Perfil.class;
 	}
 
+	public Perfil recuperarPerfilPorNome(String nome) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("select per from Perfil per ");
+		sb.append("where per.nome = :nome");
+		
+		return getEntityManager().createQuery(sb.toString(), Perfil.class)
+				.setParameter("nome", nome)
+				.getSingleResult();
+	}
+
 }
 

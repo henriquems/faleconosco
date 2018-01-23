@@ -29,10 +29,19 @@ public class PesquisaSetorBean implements Serializable {
 	
 	private List<Unidade> unidades;
 	private List<Setor> setores;
+	private Setor setor;
 	private SetorFilter filtro;
 	
 	public PesquisaSetorBean(){
 		filtro = new SetorFilter();
+	}
+
+	public Setor getSetor() {
+		return setor;
+	}
+
+	public void setSetor(Setor setor) {
+		this.setor = setor;
 	}
 
 	public List<Unidade> getUnidades() {
