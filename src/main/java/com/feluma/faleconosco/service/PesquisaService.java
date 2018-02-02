@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.feluma.faleconosco.model.Perfil;
+import com.feluma.faleconosco.model.Unidade;
 import com.feluma.faleconosco.filter.PesquisaFilter;
 
 public class PesquisaService implements Serializable {
@@ -52,6 +53,20 @@ public class PesquisaService implements Serializable {
 			}
 			if(objPesquisa.getCampo().equals("email")){
 				sb.append(" and usu.email like ");
+				sb.append("'%"+objPesquisa.getValor()+"%'");
+			}
+		}
+		return sb;
+	}
+
+	public static StringBuffer testarCamposPesquisaUnidadeSetor(StringBuffer sb, List<PesquisaFilter> listaParamentrosPesquisa) {
+		for(PesquisaFilter objPesquisa : listaParamentrosPesquisa){
+			if(objPesquisa.getCampo().equals("unidade")){
+				sb.append(" and uni.codigo = ");
+				sb.append(((Unidade) objPesquisa.getValor()).getCodigo());
+			}
+			if(objPesquisa.getCampo().equals("descricaoSetor")){
+				sb.append(" and seto.descricao like ");
 				sb.append("'%"+objPesquisa.getValor()+"%'");
 			}
 		}

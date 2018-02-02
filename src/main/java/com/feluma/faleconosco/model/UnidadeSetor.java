@@ -27,7 +27,7 @@ public class UnidadeSetor implements Serializable {
 	//bi-directional many-to-one association to Setor
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cod_set")
-	private Setor setor;
+	private Setor setor = new Setor();
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)

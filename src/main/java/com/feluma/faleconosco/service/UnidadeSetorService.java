@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.feluma.faleconosco.dao.UnidadeSetorDAO;
+import com.feluma.faleconosco.filter.UnidadeSetorFilter;
 import com.feluma.faleconosco.model.UnidadeSetor;
 
 public class UnidadeSetorService implements Serializable {
@@ -22,7 +23,17 @@ public class UnidadeSetorService implements Serializable {
 	public UnidadeSetor recuperarUnidadeSetor(Long codigoUnidade, Long codigoSetor) {
 		return dao.recuperarUnidadeSetor(codigoUnidade, codigoSetor);
 	}
-	
-	
+
+	public List<UnidadeSetor> listarUnidadeSetor() {
+		return dao.listarUnidadeSetor();
+	}
+
+	public List<UnidadeSetor> pesquisarUnidadeSetor(UnidadeSetorFilter filtro) {
+		return dao.pesquisarUnidadeSetor(PesquisaService.carregaListaParametrosPesquisa(filtro));
+	}
+
+	public UnidadeSetor recuperarUnidadeSetor(Long codigo) {
+		return dao.recuperarUnidadeSetor(codigo);
+	}	
 	
 }
