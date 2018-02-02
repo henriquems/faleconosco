@@ -8,11 +8,19 @@
 	
 	<ui:define name="content">
 		<f:metadata>
+<<<<<<< HEAD
 			<o:viewParam name="unidadeSetor" value="#{cadastroSetorBean.unidadeSetor}" />
 		</f:metadata>
 	
 		<h:form id="frm">
 			<p:outputLabel value="#{cadastroSetorBean.editando ? 'Editar Setor' : 'Novo Setor'}" style="font-size:20px; color:#00b2ab" />
+=======
+			<o:viewParam name="setor" value="#{cadastroSetorBean.setor}" />
+		</f:metadata>
+	
+		<h:form id="frm">
+			<p:outputLabel value="#{cadastroSetorBean.editando ? 'Editar Setor' : 'Novo Setor'}" style="font-size:19px; color:#00b2ab" />
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 		
 			<p:toolbar style="margin-top:15px">
 				<p:toolbarGroup>
@@ -29,12 +37,30 @@
 			<p:messages autoUpdate="true" closable="true" />
 			
 			<div class="ui-fluid">
+<<<<<<< HEAD
 				<p:panel header="Dados do usuário" style="margin-top:10px;">
+=======
+				<p:panel header="Dados do setor" style="margin-top:10px;">
+					<p:panelGrid columns="2" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-4">
+						
+						<p:outputLabel value="Nome" for="descricao"/>
+						<p:inputText id="descricao" maxlength="80" value="#{cadastroSetorBean.setor.descricao}">
+							<p:focus />
+						</p:inputText>
+					</p:panelGrid>
+				</p:panel>
+				
+				<p:panel header="Dados da unidade" style="margin-top:10px;">
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 					<p:panelGrid columns="2" layout="grid" 
 						style="margin-top: 2px;"
 						styleClass="panelgrid-noborder"
 						columnClasses="ui-grid-col-2, ui-grid-col-4">
 						
+<<<<<<< HEAD
 						<p:outputLabel value="Unidade" for="unidade"/>
 						<p:selectOneMenu id="unidade" value="#{cadastroSetorBean.unidadeSetor.unidade}">
 							<f:selectItem itemLabel="Selecione a unidade" />
@@ -44,11 +70,37 @@
 						
 						<p:outputLabel value="Nome" for="nome"/>
 						<p:inputText id="nome" maxlength="80" value="#{cadastroSetorBean.unidadeSetor.setor.descricao}" />
+=======
+						<p:selectOneMenu id="unidade" value="#{cadastroSetorBean.unidade}" >
+							<f:selectItem itemLabel="Selecione a unidade" />
+							<f:selectItems value="#{cadastroSetorBean.unidades}" var="unidade" itemValue="#{unidade}" 
+								itemLabel="#{unidade.descricao}"/>
+						</p:selectOneMenu>
+						<p:commandButton value="Adicionar unidade" action="#{cadastroSetorBean.adicionarUnidade}" 
+							process="@this unidade" update="tabela" style="width:150px"/>
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 					</p:panelGrid>
 				</p:panel>
 			</div>
 			
+<<<<<<< HEAD
 			
+=======
+			<p:dataTable id="tabela" value="#{cadastroSetorBean.setor.unidades}" var="unidade" style="margin-top:10px" 
+				emptyMessage="Nenhuma unidade encontrada!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" reflow="true">
+				
+				<p:column headerText="Unidade" style="text-align: left;">
+					<h:outputText value="#{unidade.descricao}"/>
+				</p:column>
+				
+				<p:column headerText="Excluir" style="width:60px;text-align:center">
+					<p:commandButton icon="ui-icon-trash" process="@this" update="tabela" action="#{cadastroSetorBean.excluirUnidade(unidade)}">
+						<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão" message="Tem certeza que deseja excluir o registro?" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 		</h:form>
 	</ui:define>
 	

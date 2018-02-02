@@ -7,7 +7,11 @@
 
 	<ui:define name="content">
 		<h:form id="frm" prependId="false">
+<<<<<<< HEAD
 			<p:outputLabel value="Fale Conosco" style="font-size:20px; color:#00b2ab" />
+=======
+			<p:outputLabel value="Fale Conosco" style="font-size:19px; color:#00b2ab" />
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 			
 			<p:messages id="messages" autoUpdate="true" closable="true" />
 			
@@ -19,26 +23,26 @@
 						columnClasses="ui-grid-col-5">
 						
 						<p:outputLabel value="Nome" for="nome" style="font-size:15px"/>
-						<p:inputText id="nome" value="#{cadastroMensagemBean.mensagem.cliente.nome}"><p:focus /></p:inputText>
+						<p:inputText id="nome" value="#{enviaMensagemBean.mensagem.cliente.nome}"><p:focus /></p:inputText>
 						
 						<p:outputLabel value="E-mail" for="email" style="font-size:15px"/>
-						<p:inputText id="email" value="#{cadastroMensagemBean.mensagem.cliente.email}"/>
+						<p:inputText id="email" value="#{enviaMensagemBean.mensagem.cliente.email}"/>
 						
 						<p:outputLabel value="Telefone" for="telefone" style="font-size:15px"/>
-						<p:inputMask mask="(99)9999-9999" id="telefone" value="#{cadastroMensagemBean.mensagem.cliente.telefone}"/>
+						<p:inputMask mask="(99)9999-9999" id="telefone" value="#{enviaMensagemBean.mensagem.cliente.telefone}"/>
 						
 						<p:outputLabel value="Assunto" for="assunto" style="font-size:15px"/>
-						<p:selectOneMenu id="assunto" value="#{cadastroMensagemBean.mensagem.tipoAssunto}">
+						<p:selectOneMenu id="assunto" value="#{enviaMensagemBean.mensagem.tipoAssunto}">
 							<f:selectItem itemLabel="Selecione o assunto" />
-							<f:selectItems value="#{cadastroMensagemBean.tipoAssuntos}" var="tipoAssunto" 
+							<f:selectItems value="#{enviaMensagemBean.tipoAssuntos}" var="tipoAssunto" 
 								itemValue="#{tipoAssunto}" itemLabel="#{tipoAssunto.descricao}"/>
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="Mensagem" for="mensagem" style="font-size:15px" />
-						<p:inputTextarea id="mensagem" rows="5" value="#{cadastroMensagemBean.mensagem.descricao}"/>
+						<p:inputTextarea id="mensagem" rows="5" value="#{enviaMensagemBean.mensagem.descricao}"/>
 						
 						<p:spacer />
-						<p:commandButton value="Enviar Mensagem" action="#{cadastroMensagemBean.salvar}" 
+						<p:commandButton value="Enviar Mensagem" action="#{enviaMensagemBean.salvar}" 
 							update="@form" style="width:150px;height:35px" />
 					</p:panelGrid>
 				</p:panel>

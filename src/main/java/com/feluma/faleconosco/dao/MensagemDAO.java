@@ -13,4 +13,14 @@ public class MensagemDAO extends GenericoDAO<Mensagem, Long> implements Serializ
 		return Mensagem.class;
 	}
 
+	public Mensagem recuperarMensagem(Long codigo) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("select men from Mensagem men ");
+		sb.append("where men.codigo = :codigo");
+		
+		return getEntityManager().createQuery(sb.toString(), Mensagem.class)
+				.setParameter("codigo", codigo)
+				.getSingleResult();
+	}
+
 }

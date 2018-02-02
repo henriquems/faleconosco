@@ -15,6 +15,7 @@ import javax.transaction.UserTransaction;
 import com.feluma.faleconosco.dao.generic.GenericoDAO;
 import com.feluma.faleconosco.filter.PesquisaFilter;
 import com.feluma.faleconosco.model.Perfil;
+import com.feluma.faleconosco.model.UnidadeSetor;
 import com.feluma.faleconosco.model.Usuario;
 import com.feluma.faleconosco.service.PesquisaService;
 
@@ -33,9 +34,12 @@ public class UsuarioDAO extends GenericoDAO<Usuario, Long> implements Serializab
 		Usuario usuario = null;
 		
 		StringBuffer sb = new StringBuffer();
-		sb.append("select u from Usuario u ");
-		sb.append("inner join fetch u.perfis p ");
-		sb.append("where u.email like :email");
+		sb.append("select usu from Usuario usu ");
+		sb.append("inner join fetch usu.perfis per ");
+		sb.append("inner join fetch usu.unidadeSetor uniSet ");
+		sb.append("inner join fetch uniSet.id.unidade uni ");
+		sb.append("inner join fetch uniSet.id.setor seto ");
+		sb.append("where usu.email like :email");
 		
 		try {
 			usuario = getEntityManager().createQuery(sb.toString(), Usuario.class)
@@ -51,8 +55,8 @@ public class UsuarioDAO extends GenericoDAO<Usuario, Long> implements Serializab
 		sb.append("select distinct usu from Usuario usu ");
 		sb.append("inner join fetch usu.perfis per ");
 		sb.append("inner join fetch usu.unidadeSetor uniSet ");
-		sb.append("inner join fetch uniSet.unidade uni ");
-		sb.append("inner join fetch uniSet.setor seto ");
+		sb.append("inner join fetch uniSet.id.unidade uni ");
+		sb.append("inner join fetch uniSet.id.setor seto ");
 		sb.append("where usu.codigo = :codigo");
 		
 		return getEntityManager().createQuery(sb.toString(), Usuario.class)
@@ -119,8 +123,8 @@ public class UsuarioDAO extends GenericoDAO<Usuario, Long> implements Serializab
 		sb.append("select distinct usu from Usuario usu ");
 		sb.append("inner join fetch usu.perfis per ");
 		sb.append("inner join fetch usu.unidadeSetor uniSet ");
-		sb.append("inner join fetch uniSet.unidade uni ");
-		sb.append("inner join fetch uniSet.setor seto ");
+		sb.append("inner join fetch uniSet.id.unidade uni ");
+		sb.append("inner join fetch uniSet.id.setor seto ");
 		sb.append("order by usu.nome");
 		
 		return getEntityManager().createQuery(sb.toString(), Usuario.class)
@@ -142,6 +146,33 @@ public class UsuarioDAO extends GenericoDAO<Usuario, Long> implements Serializab
 		
 		return getEntityManager().createQuery(sb.toString(), Usuario.class)
 				.getResultList();
+	}
+
+	public List<Usuario> recuperarUsuariosPorPerfil(Perfil perfil) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("select usu from Usuario usu ");
+		sb.append("inner join fetch usu.perfis per ");
+		sb.append("where per.codigo = :codigo ");
+		sb.append("order by usu.nome");
+		
+		return getEntityManager().createQuery(sb.toString(), Usuario.class)
+				.setParameter("codigo", perfil.getCodigo())
+				.getResultList();
+	}
+
+	public Usuario recuperarGerentePorUnidadeSetor(UnidadeSetor unidadeSetor) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("select usu from Usuario usu ");
+		sb.append("inner join fetch usu.perfis per ");
+		sb.append("where per.nome = :perfil and ");
+		sb.append("usu.unidadeSetor.id.unidade.codigo = :codigoUnidade ");
+		sb.append("and usu.unidadeSetor.id.setor.codigo = :codigoSetor");
+		
+		return getEntityManager().createQuery(sb.toString(), Usuario.class)
+				.setParameter("perfil", "GERENTE")
+				.setParameter("codigoUnidade", unidadeSetor.getId().getUnidade().getCodigo())
+				.setParameter("codigoSetor", unidadeSetor.getId().getSetor().getCodigo())
+				.getSingleResult();
 	}
 
 }

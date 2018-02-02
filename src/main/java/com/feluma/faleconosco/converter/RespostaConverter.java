@@ -6,22 +6,22 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import com.feluma.faleconosco.dao.UnidadeSetorDAO;
-import com.feluma.faleconosco.model.UnidadeSetor;
+import com.feluma.faleconosco.dao.RespostaDAO;
+import com.feluma.faleconosco.model.Resposta;
 
-@FacesConverter(forClass=UnidadeSetor.class)
-public class UnidadeSetorConverter implements Converter {
+@FacesConverter(forClass=Resposta.class)
+public class RespostaConverter implements Converter {
 
 	@Inject
-	private UnidadeSetorDAO dao;
+	private RespostaDAO dao;
 	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		UnidadeSetor retorno = null;
+		Resposta retorno = null;
 		
 		if (value != null) {
 			Long id = new Long(value);
-			retorno = dao.pesquisarPorCodigo(id);
+			retorno = dao.recuperarResposta(id);
 		}
 		
 		return retorno;
@@ -30,8 +30,8 @@ public class UnidadeSetorConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value != null) {
-			UnidadeSetor unidadeSetor = (UnidadeSetor) value;
-			return unidadeSetor.getCodigo() == null ? null : unidadeSetor.getCodigo().toString();
+			Resposta perfil = (Resposta) value;
+			return perfil.getCodigo() == null ? null : perfil.getCodigo().toString();
 		}
 		
 		return "";

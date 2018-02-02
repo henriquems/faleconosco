@@ -3,6 +3,8 @@ package com.feluma.faleconosco.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +24,8 @@ public class Resposta implements Serializable {
 	@Column(name="cod_res")
 	private Long codigo;
 	
-	@Column(name="des_men")
+	@NotEmpty
+	@Column(name="des_res")
 	private String descricao;
 	
 	@Temporal(TemporalType.TIMESTAMP)

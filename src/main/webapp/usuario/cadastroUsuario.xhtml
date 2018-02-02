@@ -12,7 +12,11 @@
 		</f:metadata>
 	
 		<h:form id="frm">
+<<<<<<< HEAD
 			<p:outputLabel value="#{cadastroUsuarioBean.editando ? 'Editar Usuário' : 'Novo Usuário'}" style="font-size:20px; color:#00b2ab" />
+=======
+			<p:outputLabel value="#{cadastroUsuarioBean.editando ? 'Editar Usuário' : 'Novo Usuário'}" style="font-size:19px; color:#00b2ab" />
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 		
 			<p:toolbar style="margin-top:15px">
 				<p:toolbarGroup>
@@ -43,7 +47,7 @@
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="Unidade" for="unidade"/>
-						<p:selectOneMenu id="unidade" value="#{cadastroUsuarioBean.usuario.unidadeSetor.unidade}">
+						<p:selectOneMenu id="unidade" value="#{cadastroUsuarioBean.usuario.unidadeSetor.id.unidade}">
 							<f:selectItem itemLabel="Selecione a unidade" />
 							<f:selectItems value="#{cadastroUsuarioBean.unidades}" var="unidade" 
 								itemValue="#{unidade}" itemLabel="#{unidade.descricao}"/>
@@ -51,10 +55,10 @@
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="Setor" for="setor"/>
-						<p:selectOneMenu id="setor" value="#{cadastroUsuarioBean.usuario.unidadeSetor.setor}">
+						<p:selectOneMenu id="setor" value="#{cadastroUsuarioBean.usuario.unidadeSetor.id.setor}">
 							<f:selectItem itemLabel="Selecione o setor" />
-							<f:selectItems value="#{cadastroUsuarioBean.unidadeSetores}" var="unidadeSetor" 
-								itemValue="#{unidadeSetor.setor}" itemLabel="#{unidadeSetor.setor.descricao}"/>
+							<f:selectItems value="#{cadastroUsuarioBean.setores}" var="setor" 
+								itemValue="#{setor}" itemLabel="#{setor.descricao}"/>
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="Nome" for="nome"/>

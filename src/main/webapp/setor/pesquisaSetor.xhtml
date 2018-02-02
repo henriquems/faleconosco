@@ -7,7 +7,11 @@
 	
 	<ui:define name="content">
 		<h:form id="frmPesquisa">
+<<<<<<< HEAD
 			<p:outputLabel value="Pesquisa de Setores" style="font-size:20px; color:#00b2ab" />
+=======
+			<p:outputLabel value="Pesquisa de Setores" style="font-size:19px; color:#00b2ab" />
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 			
 			<p:toolbar style="margin-top:15px">
 				<p:toolbarGroup>
@@ -30,6 +34,7 @@
 						styleClass="panelgrid-noborder"
 						columnClasses="ui-grid-col-1, ui-grid-col-5, ui-grid-col-1, ui-grid-col-5">
 						
+<<<<<<< HEAD
 						<p:outputLabel value="Unidade" for="unidade"/>
 						<p:selectOneMenu id="unidade" value="#{pesquisaSetorBean.filtro.unidade}">
 							<f:selectItem itemLabel="Selecione a unidade" />
@@ -39,10 +44,22 @@
 						
 						<p:outputLabel value="Nome" for="descricaoSetor" />
 						<p:inputText id="descricaoSetor" value="#{pesquisaSetorBean.filtro.descricaoSetor}" />	
+=======
+						<p:outputLabel value="Unidade" />
+						<p:selectOneMenu id="unidade" value="#{pesquisaSetorBean.filtro.unidade}" >
+							<f:selectItem itemLabel="Selecione a unidade" />
+							<f:selectItems value="#{pesquisaSetorBean.unidades}" var="unidade" itemValue="#{unidade}" 
+								itemLabel="#{unidade.descricao}"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Nome" />
+						<p:inputText id="descricao" value="#{pesquisaSetorBean.filtro.descricao}" />	
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 					</p:panelGrid>
 				</p:panel>
 			</div>
 			
+<<<<<<< HEAD
 			<p:dataTable value="#{pesquisaSetorBean.unidadeSetores}" var="unidadeSetor" style="margin-top:10px" 
 				emptyMessage="Nenhum setor encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" id="table" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
@@ -58,15 +75,53 @@
 				<p:column headerText="Editar" style="text-align:center;width:60px">
 					<p:button outcome="/setor/cadastroSetor" icon="ui-icon-pencil" title="Editar">
 						<f:param name="unidadeSetor" value="#{unidadeSetor.codigo}" />
+=======
+			<p:dataTable value="#{pesquisaSetorBean.setores}" var="setor" style="margin-top:10px" 
+				emptyMessage="Nenhum setor encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" id="table" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+				
+				<p:column headerText="Setor" sortBy="#{setor.descricao}" style="text-align: left;">
+					<h:outputText value="#{setor.descricao}"/>
+				</p:column>
+				
+				<p:column headerText="Unidade" style="text-align:center;width: 60px">
+	    			<p:commandButton icon="fa fa-building-o" title="Unidades" 
+	    				process="@this" oncomplete="PF('mostrarUnidade').show();" update=":frmPesquisa:mostrarUnidadeDialog">
+	    				<f:setPropertyActionListener target="#{pesquisaSetorBean.setor}" value="#{setor}" />
+	    			</p:commandButton>
+	    		</p:column>
+				
+				<p:column headerText="Editar" style="text-align:center;width:60px">
+					<p:button outcome="/setor/cadastroSetor" icon="ui-icon-pencil" title="Editar">
+						<f:param name="setor" value="#{setor.codigo}" />
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 					</p:button>
 				</p:column>
 				
 				<p:column headerText="Excluir" style="text-align:center;width:60px">
+<<<<<<< HEAD
 					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="table" action="#{pesquisaSetorBean.excluir(unidadeSetor)}">
+=======
+					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="table" action="#{pesquisaSetorBean.excluir(setor)}">
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 						<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão" message="Tem certeza que deseja excluir o registro?" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+<<<<<<< HEAD
+=======
+			
+			<p:dialog id="mostrarUnidadeDialog" header="Unidade associada" widgetVar="mostrarUnidade" 
+				modal="true" style="min-width:300px;max-width:500px" responsive="true">
+    			
+    			<p:dataTable value="#{pesquisaSetorBean.setor.unidades}" var="unidade">
+    				<p:column headerText="Unidade" style="text-align: left;">
+						<h:outputText value="#{unidade.descricao}"/>
+					</p:column>
+    			</p:dataTable>
+    			
+			</p:dialog>
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 		</h:form>
 	</ui:define>
 	

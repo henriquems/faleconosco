@@ -21,6 +21,10 @@ public class MensagemService implements Serializable {
 			throw new NegocioException("Erro ao salvar a mensagem!");
 		}
 	}
+
+	public Mensagem recuperarMensagem(Long codigo) {
+		return dao.recuperarMensagem(codigo);
+	}
 	
 
 }

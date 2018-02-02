@@ -59,18 +59,43 @@ public class PesquisaService implements Serializable {
 		return sb;
 	}
 
+<<<<<<< HEAD
 	public static StringBuffer testarCamposPesquisaUnidadeSetor(StringBuffer sb, List<PesquisaFilter> listaParamentrosPesquisa) {
+=======
+	public static StringBuffer testarCamposPesquisaSetor(StringBuffer sb, List<PesquisaFilter> listaParamentrosPesquisa) {
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 		for(PesquisaFilter objPesquisa : listaParamentrosPesquisa){
 			if(objPesquisa.getCampo().equals("unidade")){
 				sb.append(" and uni.codigo = ");
 				sb.append(((Unidade) objPesquisa.getValor()).getCodigo());
 			}
+<<<<<<< HEAD
 			if(objPesquisa.getCampo().equals("descricaoSetor")){
+=======
+			if(objPesquisa.getCampo().equals("descricao")){
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 				sb.append(" and seto.descricao like ");
 				sb.append("'%"+objPesquisa.getValor()+"%'");
 			}
 		}
 		return sb;
 	}
+<<<<<<< HEAD
+=======
+
+	public static StringBuffer testarCamposPesquisaAvaliacao(StringBuffer sb, List<PesquisaFilter> listaParamentrosPesquisa) {
+		for(PesquisaFilter objPesquisa : listaParamentrosPesquisa){
+			if(objPesquisa.getCampo().equals("statusAvaliacao")){
+				sb.append(" and ava.statusAvaliacao = ");
+				sb.append("'"+objPesquisa.getValor()+"'");
+			}
+			if(objPesquisa.getCampo().equals("nomeCliente")){
+				sb.append(" and cli.nome like ");
+				sb.append("'%"+objPesquisa.getValor()+"%'");
+			}
+		}
+		return sb;
+	}
+>>>>>>> ff72ce40a95f98891969da7674da616caff254b4
 	
 }

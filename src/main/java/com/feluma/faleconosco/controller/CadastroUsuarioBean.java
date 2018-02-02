@@ -10,13 +10,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.feluma.faleconosco.model.Perfil;
+import com.feluma.faleconosco.model.Setor;
 import com.feluma.faleconosco.model.StatusUsuario;
 import com.feluma.faleconosco.model.Unidade;
-import com.feluma.faleconosco.model.UnidadeSetor;
 import com.feluma.faleconosco.model.Usuario;
 import com.feluma.faleconosco.service.PerfilService;
+import com.feluma.faleconosco.service.SetorService;
 import com.feluma.faleconosco.service.UnidadeService;
-import com.feluma.faleconosco.service.UnidadeSetorService;
 import com.feluma.faleconosco.service.UsuarioService;
 import com.feluma.faleconosco.util.jsf.FacesUtil;
 
@@ -36,14 +36,14 @@ public class CadastroUsuarioBean implements Serializable {
 	private UnidadeService unidadeService;
 	
 	@Inject
-	private UnidadeSetorService unidadeSetorService;
+	private SetorService setorService;
 	
 	private Usuario usuario;
 	private Perfil perfil;
 	private List<Perfil> perfis;
 	private List<StatusUsuario> statusUsuarios;
 	private List<Unidade> unidades;
-	private List<UnidadeSetor> unidadeSetores;
+	private List<Setor> setores;
 	
 	public CadastroUsuarioBean() {
 		limpar();
@@ -81,8 +81,8 @@ public class CadastroUsuarioBean implements Serializable {
 		return unidades;
 	}
 
-	public List<UnidadeSetor> getUnidadeSetores() {
-		return unidadeSetores;
+	public List<Setor> getSetores() {
+		return setores;
 	}
 
 	@PostConstruct
@@ -95,17 +95,14 @@ public class CadastroUsuarioBean implements Serializable {
 	}
 	
 	public void recuperarSetoresDaUnidade(){
-		if(usuario.getUnidadeSetor().getUnidade() != null){
-			unidadeSetores = unidadeSetorService.recuperarSetoresDaUnidade(usuario.getUnidadeSetor().getUnidade().getCodigo());
+		if(usuario.getUnidadeSetor().getId().getUnidade() != null){
+			setores = setorService.recuperarSetoresDaUnidade(usuario.getUnidadeSetor().getId().getUnidade().getCodigo());
 		}
 	}
 	
 	public String salvar(){
 		String retorno = null;
 		if(usuario.getPerfis().size() != 0){
-			usuario.setUnidadeSetor(unidadeSetorService.recuperarUnidadeSetor(
-					usuario.getUnidadeSetor().getUnidade().getCodigo(),
-					usuario.getUnidadeSetor().getSetor().getCodigo()));
 			usuario = usuarioService.salvar(usuario);
 			FacesUtil.addInfoMessage("Usuário "+usuario.getNome()+" salvo com sucesso!");
 			return "pesquisaUsuario.xhtml?faces-redirect=true";
@@ -132,8 +129,8 @@ public class CadastroUsuarioBean implements Serializable {
 	
 	public void adicionarPerfil(){
 		if(perfil != null){
-			if(this.usuario.getPerfis().contains(this.perfil)){
-				FacesUtil.addErroMessage("O perfil selecionado já se encontra adicionado!");
+			if(this.usuario.getPerfis().size() > 0){
+				FacesUtil.addAlertMessage("O usuário só pode estar associado a um perfil!");
 			} else {
 				this.usuario.getPerfis().add(this.perfil);
 				FacesUtil.addAlertMessage("Perfil adicionado com sucesso! Favor salvar os dados!");
